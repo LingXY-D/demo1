@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo1.dao.UserMapper">
+    <resultMap id="BaseUserMap" type="com.example.demo1.entity.user">
+        <id column="id" property="id"/>
+        <result column="username_test" property="username"/>
+        <result column="password" property="password"/>
+    </resultMap>
+
+    <select id="selectByUsername" resultMap="BaseUserMap">
+        select * from user
+        where username_test = #{username}
+    </select>
+
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+        insert into user(username_test, password)
+        values (#{username}, #{password})
+    </insert>
+
+    <update id="updateUser">
+        update user set
+            password = #{password}
+        where username_test = #{username}
+    </update>
+
+<!--    <delete id="deleteUser">-->
+<!--        delete from user-->
+<!--        where username_test = #{username}-->
+<!--    </delete>-->
+
+    <select id="selectByOpenid" resultMap="BaseUserMap">
+        select * from user
+        where openid = #{openid}
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
