@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo1.dao.ContestMapper">
+    <resultMap id="BaseQuestionMap" type="com.example.demo1.entity.Contest">
+        <id column="guid" property="guid"/>
+        <result column="num" property="num"/>
+        <result column="sta" property="sta"/>
+        <result column="lim" property="lim"/>
+        <result column="na" property="na"/>
+    </resultMap>
+
+    <insert id="insertContest" useGeneratedKeys="true">
+        insert into contest(guid, num, sta, lim, na)
+        values (#{guid}, #{num}, #{sta}, #{lim}, #{na})
+    </insert>
+
+</mapper>
