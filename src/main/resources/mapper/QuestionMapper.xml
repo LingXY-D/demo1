@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo1.dao.QuestionMapper">
+    <resultMap id="BaseQuestionMap" type="com.example.demo1.entity.Question">
+        <id column="id" property="id"/>
+        <result column="type" property="type"/>
+        <result column="stem" property="stem"/>
+        <result column="options" property="options"/>
+        <result column="answer" property="answer"/>
+    </resultMap>
+
+    <select id="selectByQuestionId" resultMap="BaseQuestionMap">
+        select * from question
+        where id = #{id}
+    </select>
+
+</mapper>

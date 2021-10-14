@@ -1,7 +1,7 @@
 package com.example.demo1.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.demo1.entity.user;
+import com.example.demo1.entity.User;
 import com.example.demo1.entity.UpdateUser;
 import com.example.demo1.service.UserService;
 import com.example.demo1.util.RestTemplateUtil;
@@ -19,9 +19,9 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/user")
-public class usercontroller {
+public class UserController {
 
-    private static final Logger log = LoggerFactory.getLogger(usercontroller.class);
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     UserService userService;
@@ -32,11 +32,11 @@ public class usercontroller {
     }
 
     @PostMapping("/login")
-    public Result login(@RequestBody user user){
+    public Result login(@RequestBody User user){
         String username = user.getUsername();
         String password = user.getPassword();
         log.info("login username: {} password: {}", username, password);
-        user result = userService.login(username, password);
+        User result = userService.login(username, password);
         if(result != null) {
             log.info("login success");
             return new Result(0, result, "登陆成功");
@@ -46,11 +46,11 @@ public class usercontroller {
     }
 
     @PostMapping("/register")
-    public Result register(@RequestBody user user){
+    public Result register(@RequestBody User user){
         String username = user.getUsername();
         String password = user.getPassword();
         log.info("register username: {} password: {}", username, password);
-        user result = null;
+        User result = null;
         try{
             result = userService.register(username, password);
         } catch (Exception e){
@@ -66,7 +66,7 @@ public class usercontroller {
         String newpassword = updateuser.getNewpassword();
         System.out.println(newpassword);
         log.info("login username: {} password: {}", username, password);
-        user result = userService.login(username, password);
+        User result = userService.login(username, password);
         if(result != null) {
             result = userService.modifyPassword(username, newpassword);
             return new Result(0, result, "修改成功");
@@ -87,10 +87,10 @@ public class usercontroller {
         String session_key = userObject.getString("session_key");
         System.out.println(userObject);
 
-        user user = userService.selectByOpenid(openid);
+        User user = userService.selectByOpenid(openid);
         String userID = null;
         if (user == null){
-            user user1 = userService.register("default", "123456");
+            User user1 = userService.register("default", "123456");
             user1.setOpenid(openid);
             userID = user1.getOpenid();
         }else {

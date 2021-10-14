@@ -26,6 +26,11 @@ public class ContestController {
 //        String name;  // 比赛名称
     }
 
+//    @PostMapping("/newLevel")
+//    public void newLevel(@RequestBody Contest contest) {
+//        contestService.newContest(contest);
+//    }
+
 //    @AdminLogin
 //    @PostMapping("/add")
 //    public void add(@RequestBody String id) {

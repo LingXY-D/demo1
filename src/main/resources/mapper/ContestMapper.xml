@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo1.dao.ContestMapper">
-    <resultMap id="BaseQuestionMap" type="com.example.demo1.entity.Contest">
+    <resultMap id="BaseContestMap" type="com.example.demo1.entity.Contest">
         <id column="guid" property="guid"/>
         <result column="num" property="num"/>
         <result column="sta" property="sta"/>
