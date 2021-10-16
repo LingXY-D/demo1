@@ -19,11 +19,6 @@ public class ContestController {
     @PostMapping("/new")
     public void newContest(@RequestBody Contest contest) {
         contestService.newContest(contest);
-//        int guid;     // 比赛唯一编号
-//        int num;      // 关卡数量
-//        int start;    // 比赛开始时间
-//        int lim;      // 比赛时限
-//        String name;  // 比赛名称
     }
 
 //    @PostMapping("/newLevel")

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo1.dao.LevelMapper">
+    <resultMap id="BaseLevelMap" type="com.example.demo1.entity.Level">
+        <id column="id" property="id"/>
+        <result column="level_name" property="level_name"/>
+        <result column="of_contest" property="of_contest"/>
+        <result column="limit_time" property="limit_time"/>
+    </resultMap>
+
+    <insert id="newLevel" useGeneratedKeys="true">
+        insert into level(id, level_name, of_contest, limit_time)
+        values (#{id}, #{level_name}, #{of_contest}, #{limit_time})
+    </insert>
+
+</mapper>

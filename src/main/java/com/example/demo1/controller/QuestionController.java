@@ -22,12 +22,16 @@ public class QuestionController {
     @PostMapping("/judge")
     public boolean isCorrect(@RequestBody HashMap<String, String> question) {
         String id = question.get("id");
-//        String[] ans = new String[];
         List<String> ans = new ArrayList<>();
         for(String val: question.values()) {
             ans.add(val);
         }
         if(questionService.isCorrect(id, ans)) return true;
         else return false;
+    }
+
+    @PostMapping("/add")
+    public void addQuestion(@RequestBody Question question) {
+        questionService.addQuestion(question);
     }
 }

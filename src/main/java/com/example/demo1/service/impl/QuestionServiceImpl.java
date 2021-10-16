@@ -26,4 +26,9 @@ public class QuestionServiceImpl implements QuestionService {
         }
         return true;
     }
+
+    @Override
+    public void addQuestion(Question question) {
+        questionMapper.addQuestion(question);
+    }
 }

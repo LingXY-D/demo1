@@ -5,18 +5,24 @@
 <mapper namespace="com.example.demo1.dao.QuestionMapper">
     <resultMap id="BaseQuestionMap" type="com.example.demo1.entity.Question">
         <id column="id" property="id"/>
-        <result column="type" property="type"/>
+        <result column="question_type" property="type"/>
         <result column="question_stem" property="stem"/>
         <result column="option1" property="option1"/>
         <result column="option2" property="option2"/>
         <result column="option3" property="option3"/>
         <result column="option4" property="option4"/>
         <result column="answer" property="answer"/>
+        <result column="of_level" property="of_level"/>
     </resultMap>
 
     <select id="selectByQuestionId" resultMap="BaseQuestionMap">
         select * from question
         where id = #{id}
     </select>
+
+    <insert id="addQuestion" useGeneratedKeys="true">
+        insert into question(id, question_type, question_stem, option1, option2, option3, option4, answer, of_level)
+        values (#{id}, #{type}, #{stem}, #{option1}, #{option2}, #{option3}, #{option4}, #{answer}, #{of_level})
+    </insert>
 
 </mapper>

@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface QuestionMapper {
     Question selectByQuestionId(int id);
+    void addQuestion(Question question);
 }
