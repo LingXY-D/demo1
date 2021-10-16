@@ -5,15 +5,15 @@
 <mapper namespace="com.example.demo1.dao.ContestMapper">
     <resultMap id="BaseContestMap" type="com.example.demo1.entity.Contest">
         <id column="guid" property="guid"/>
-        <result column="num" property="num"/>
-        <result column="sta" property="sta"/>
-        <result column="lim" property="lim"/>
-        <result column="na" property="na"/>
+        <result column="level_num" property="level_num"/>
+        <result column="start_time" property="start_time"/>
+        <result column="limit_time" property="limit_time"/>
+        <result column="contest_name" property="contest_name"/>
     </resultMap>
 
     <insert id="insertContest" useGeneratedKeys="true">
-        insert into contest(guid, num, sta, lim, na)
-        values (#{guid}, #{num}, #{sta}, #{lim}, #{na})
+        insert into contest(guid, level_num, start_time, limit_time, contest_name)
+        values (#{guid}, #{level_num}, #{start_time}, #{limit_time}, #{contest_name})
     </insert>
 
 </mapper>

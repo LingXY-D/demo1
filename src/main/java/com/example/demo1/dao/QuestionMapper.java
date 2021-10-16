@@ -8,5 +8,4 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface QuestionMapper {
     Question selectByQuestionId(int id);
-    boolean isCorrect(Question question);
 }

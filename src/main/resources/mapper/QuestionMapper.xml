@@ -6,8 +6,11 @@
     <resultMap id="BaseQuestionMap" type="com.example.demo1.entity.Question">
         <id column="id" property="id"/>
         <result column="type" property="type"/>
-        <result column="stem" property="stem"/>
-        <result column="options" property="options"/>
+        <result column="question_stem" property="stem"/>
+        <result column="option1" property="option1"/>
+        <result column="option2" property="option2"/>
+        <result column="option3" property="option3"/>
+        <result column="option4" property="option4"/>
         <result column="answer" property="answer"/>
     </resultMap>
 

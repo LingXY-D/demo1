@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/question")
 public class QuestionController {
@@ -16,8 +20,14 @@ public class QuestionController {
     QuestionService questionService;
 
     @PostMapping("/judge")
-    public boolean isCorrect(@RequestBody Question question) {
-        if(questionService.isCorrect(question)) return true;
+    public boolean isCorrect(@RequestBody HashMap<String, String> question) {
+        String id = question.get("id");
+//        String[] ans = new String[];
+        List<String> ans = new ArrayList<>();
+        for(String val: question.values()) {
+            ans.add(val);
+        }
+        if(questionService.isCorrect(id, ans)) return true;
         else return false;
     }
 }
