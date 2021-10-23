@@ -7,7 +7,7 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 
@@ -54,7 +54,7 @@ public class JwtUtil {
     }
 
     public static boolean verifyToken(String token) {
-        if (StringUtils.isBlank(token)) {
+        if (!StringUtils.hasLength(token)) {
             throw new RuntimeException("无token，请重新登录");
         }
         try {
