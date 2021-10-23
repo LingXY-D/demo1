@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo1.dao.StageMapper">
+    <resultMap id="BaseStageMap" type="com.example.demo1.entity.Stage">
+        <id column="id" property="id"/>
+        <result column="contest_id" property="contest_id"/>
+        <result column="index" property="index"/>
+        <result column="time_limit" property="time_limit"/>
+        <result column="last_time" property="last_time"/>
+        <result column="start_time" property="start_time"/>
+        <result column="score" property="score"/>
+    </resultMap>
+
+    <insert id="newStage" useGeneratedKeys="true">
+        insert into stage(id, contest_id, index, time_limit, last_time, start_time, score)
+        values (#{id}, #{contest_id}, #{index}, #{time_limit}, #{last_time}, #{start_time}, #{score})
+    </insert>
+
+    <delete id="deleteStage">
+        delete from stage
+        where id = #{id}
+    </delete>
+
+</mapper>
