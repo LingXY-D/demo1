@@ -16,7 +16,12 @@ public class LevelController {
     LevelService levelService;
 
     @PostMapping("/new")
-    public void newContest(@RequestBody Level level) {
+    public void newLevel(@RequestBody Level level) {
         levelService.newLevel(level);
+    }
+
+    @PostMapping("/delete")
+    public void deleteLevel(@RequestBody int id) {
+        levelService.deleteLevel(id);
     }
 }

@@ -5,17 +5,19 @@
 <mapper namespace="com.example.demo1.dao.UserMapper">
     <resultMap id="BaseUserMap" type="com.example.demo1.entity.User">
         <id column="id" property="id"/>
-        <result column="username_test" property="username"/>
+        <result column="username" property="username"/>
         <result column="password" property="password"/>
+        <result column="openid" property="openid"/>
+        <result column="admin" property="admin"/>
     </resultMap>
 
     <select id="selectByUsername" resultMap="BaseUserMap">
         select * from user
-        where username_test = #{username}
+        where username = #{username}
     </select>
 
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
-        insert into user(username_test, password)
+        insert into user(username, password)
         values (#{username}, #{password})
     </insert>
 

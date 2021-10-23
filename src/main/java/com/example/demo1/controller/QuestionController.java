@@ -34,4 +34,9 @@ public class QuestionController {
     public void addQuestion(@RequestBody Question question) {
         questionService.addQuestion(question);
     }
+
+    @PostMapping("/delete")
+    public void deleteQuestion(@RequestBody int id) {
+        questionService.deleteQuestion(id);
+    }
 }

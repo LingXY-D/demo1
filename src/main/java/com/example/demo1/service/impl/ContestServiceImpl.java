@@ -1,6 +1,7 @@
 package com.example.demo1.service.impl;
 
 import com.example.demo1.dao.ContestMapper;
+import com.example.demo1.dao.UserMapper;
 import com.example.demo1.entity.Contest;
 import com.example.demo1.entity.Question;
 import com.example.demo1.service.ContestService;
@@ -17,8 +18,9 @@ public class ContestServiceImpl implements ContestService {
         contestMapper.insertContest(contest);
     }
 
-//    @Override
-//    public void newLevel(Question[] questions) {
-//
-//    }
+    @Override
+    public void deleteContest(int guid) {
+        contestMapper.deleteContest(guid);
+    }
+
 }

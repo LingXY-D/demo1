@@ -15,4 +15,9 @@ public class LevelServiceImpl implements LevelService {
     public void newLevel(Level level) {
         levelMapper.newLevel(level);
     }
+
+    @Override
+    public void deleteLevel(int id) {
+        levelMapper.deleteLevel(id);
+    }
 }

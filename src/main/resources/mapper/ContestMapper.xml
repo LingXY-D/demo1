@@ -16,4 +16,9 @@
         values (#{guid}, #{level_num}, #{start_time}, #{limit_time}, #{contest_name})
     </insert>
 
+    <delete id="deleteContest">
+        delete from contest
+        where guid = #{guid}
+    </delete>
+
 </mapper>

@@ -15,4 +15,9 @@
         values (#{id}, #{level_name}, #{of_contest}, #{limit_time})
     </insert>
 
+    <delete id="deleteLevel">
+        delete from level
+        where id = #{id}
+    </delete>
+
 </mapper>

@@ -21,6 +21,11 @@ public class ContestController {
         contestService.newContest(contest);
     }
 
+    @PostMapping("/delete")
+    public void deleteContest(@RequestBody int guid) {
+        contestService.deleteContest(guid);
+    }
+
 //    @PostMapping("/newLevel")
 //    public void newLevel(@RequestBody Contest contest) {
 //        contestService.newContest(contest);

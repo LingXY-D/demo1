@@ -25,4 +25,9 @@
         values (#{id}, #{type}, #{stem}, #{option1}, #{option2}, #{option3}, #{option4}, #{answer}, #{of_level})
     </insert>
 
+    <delete id="deleteQuestion">
+        delete from question
+        where id = #{id}
+    </delete>
+
 </mapper>

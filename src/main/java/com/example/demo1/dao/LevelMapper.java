@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface LevelMapper {
     void newLevel(Level level);
+    void deleteLevel(int id);
 }

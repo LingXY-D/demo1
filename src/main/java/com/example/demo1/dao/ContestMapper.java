@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface ContestMapper {
     void insertContest(Contest contest);
+    void deleteContest(int guid);
 }

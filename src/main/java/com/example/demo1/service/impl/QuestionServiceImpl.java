@@ -31,4 +31,9 @@ public class QuestionServiceImpl implements QuestionService {
     public void addQuestion(Question question) {
         questionMapper.addQuestion(question);
     }
+
+    @Override
+    public void deleteQuestion(int id) {
+        questionMapper.deleteQuestion(id);
+    }
 }
