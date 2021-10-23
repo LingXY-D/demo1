@@ -1,9 +1,11 @@
 package com.example.demo1.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.demo1.annotation.UserLogin;
 import com.example.demo1.entity.User;
 import com.example.demo1.entity.UpdateUser;
 import com.example.demo1.service.UserService;
+import com.example.demo1.util.JwtUtil;
 import com.example.demo1.util.RestTemplateUtil;
 import org.springframework.data.redis.core.script.DigestUtils;
 import com.example.demo1.util.Result;
@@ -14,6 +16,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,23 +29,20 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/hello")
-    public String hello(){
-        return "hello world";
-    }
-
     @PostMapping("/login")
     public Result login(@RequestBody User user){
         String username = user.getUsername();
         String password = user.getPassword();
-        log.info("login username: {} password: {}", username, password);
         User result = userService.login(username, password);
         if(result != null) {
-            log.info("login success");
-            return new Result(0, result, "登陆成功");
+            final long seven_days = 604800000;
+            String token = JwtUtil.createToken(String.valueOf(result.getId()), seven_days, "access");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("token", token);
+            jsonObject.put("user", result);
+            return new Result(0, jsonObject, "登录成功");
         }
-        log.info("login fail");
-        return new Result(-1, null, "登陆失败");
+        return new Result(-1, null, "登录失败");
     }
 
     @PostMapping("/register")
@@ -59,16 +59,15 @@ public class UserController {
         return new Result(0, result, "注册成功");
     }
 
-    @PostMapping("/modifyPassWord")
-    public Result modifyPassword(@RequestBody UpdateUser updateuser){
-        String username = updateuser.getUsername();
-        String password = updateuser.getPassword();
-        String newpassword = updateuser.getNewpassword();
-        System.out.println(newpassword);
-        log.info("login username: {} password: {}", username, password);
-        User result = userService.login(username, password);
-        if(result != null) {
-            result = userService.modifyPassword(username, newpassword);
+    @UserLogin
+    @PostMapping("/modify")
+    public Result modifyPassword(HttpServletRequest request, @RequestBody HashMap<String, String> modifyMap){
+        String token = request.getHeader("Authorization").substring(7);
+        int userId = JwtUtil.getUserID(token);
+        String password = modifyMap.get("password");
+        String newPassword = modifyMap.get("new_password");
+        User result = userService.modifyPassword(userId, password, newPassword);
+        if (result != null) {
             return new Result(0, result, "修改成功");
         }
         return new Result(-1, null, "修改失败：原密码错误");
