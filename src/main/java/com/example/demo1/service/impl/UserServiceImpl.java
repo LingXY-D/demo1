@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService{
         if(user != null){
             throw new Exception("用户名已存在");
         }
-        user = new User(0, username, password, "0", 0);
+        user = new User(0, username, password, "", 0);
         userMapper.insertUser(user);
         user = userMapper.selectByUsername(username);
         return user;

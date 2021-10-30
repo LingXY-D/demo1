@@ -46,13 +46,14 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public Result register(@RequestBody User user){
-        String username = user.getUsername();
-        String password = user.getPassword();
+    public Result register(@RequestBody HashMap<String, String> user){
+        String username = user.get("username");
+        String password = user.get("password");
         log.info("register username: {} password: {}", username, password);
         User result = null;
         try{
             result = userService.register(username, password);
+
         } catch (Exception e){
             return new Result(-1, null, e.getMessage());
         }

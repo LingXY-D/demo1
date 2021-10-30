@@ -1,5 +1,6 @@
 package com.example.demo1.controller;
 
+import com.example.demo1.annotation.AdminLogin;
 import com.example.demo1.entity.Stage;
 import com.example.demo1.service.StageService;
 import org.apache.commons.lang3.StringUtils;
@@ -37,27 +38,27 @@ public class StageController {
         return "hello";
     }
 
+    @AdminLogin
     @PostMapping("/new")
     public void newStage(@RequestBody HashMap<String,String> map) {
-        Stage stage = new Stage(Integer.parseInt(map.get("id")),
-                Integer.parseInt(map.get("contest_id")),
-                Integer.parseInt(map.get("index")),
-                Integer.parseInt(map.get("time_limit")),
-                null,
-                null,
-                Integer.parseInt(map.get("score"))
-        );
         LocalTime last_t = null;
         LocalDateTime start_t = null;
         try {
             last_t = LastTime(map.get("last_time"));
             start_t = StartTime(map.get("start_time"));
         } catch (Exception e) {}
-        stage.setLast_time(last_t);
-        stage.setStart_time(start_t);
+        Stage stage = new Stage(Integer.parseInt(map.get("id")),
+                Integer.parseInt(map.get("contest_id")),
+                Integer.parseInt(map.get("index")),
+                Integer.parseInt(map.get("time_limit")),
+                last_t,
+                start_t,
+                Integer.parseInt(map.get("score"))
+        );
         stageService.newStage(stage);
     }
 
+    @AdminLogin
     @PostMapping("/delete")
     public void deleteStage(@RequestBody int id) {
         stageService.deleteStage(id);

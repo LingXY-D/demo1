@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo1.dao.ContestMapper">
     <resultMap id="BaseContestMap" type="com.example.demo1.entity.Contest">
-        <id column="guid" property="guid"/>
+        <id column="id" property="id"/>
         <result column="contest_name" property="contest_name"/>
         <result column="intro" property="intro"/>
         <result column="code" property="code"/>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo1.dao.ScoreMapper">
+    <resultMap id="BaseScoreMap" type="com.example.demo1.entity.Score">
+        <id column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="stage_id" property="stage_id"/>
+        <result column="score" property="score"/>
+        <result column="consuming_time" property="consuming_time"/>
+    </resultMap>
+
+    <insert id="insertScore" useGeneratedKeys="true">
+        insert into score(id, user_id, stage_id, score, consuming_time)
+        values (#{id}, #{user_id}, #{stage_id}, #{score}, #{consuming_time})
+    </insert>
+
+    <delete id="deleteScore">
+        delete from score
+        where id = #{id}
+    </delete>
+
+</mapper>
