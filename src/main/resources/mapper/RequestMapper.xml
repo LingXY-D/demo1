@@ -9,11 +9,30 @@
         <result column="stage_id" property="stage_id"/>
         <result column="total" property="total"/>
         <result column="start_time" property="start_time"/>
+        <result column="score" property="score"/>
+        <result column="consuming_time" property="consuming_time"/>
     </resultMap>
 
-    <insert id="insertRequest" useGeneratedKeys="true">
-        insert into request(id, user_id, stage_id, total, start_time)
-        values (#{id}, #{user_id}, #{stage_id}, #{total}, #{start_time})
+    <select id="selectBy2Id" resultMap="BaseRequestMap">
+        select * from request
+        where stage_id = #{stageId}, user_id = #{userId}
+    </select>
+
+    <update id="addTotal">
+        update request set
+            total = #{total} + 1
+        where id = #{id}
+    </update>
+
+    <update id="addScore">
+        update request set
+            score = #{score} + 1
+        where id = #{id}
+    </update>
+
+    <insert id="insertRequest" useGeneratedKeys="true" keyProperty="id">
+        insert into request(id, user_id, stage_id, total, start_time, score, consuming_time)
+        values (#{id}, #{user_id}, #{stage_id}, #{total}, #{start_time}, #{score}, #{consuming_time})
     </insert>
 
     <delete id="deleteRequest">

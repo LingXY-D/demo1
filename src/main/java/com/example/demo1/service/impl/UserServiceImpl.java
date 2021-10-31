@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService{
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userMapper.insertUser(user);
-        user = userMapper.selectByUsername(username);
+//        user = userMapper.selectByUsername(username);
         return user;
     }
 

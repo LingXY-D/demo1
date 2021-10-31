@@ -13,4 +13,6 @@ public class Request {
     private int stage_id;
     private int total;
     private LocalDateTime start_time;
+    private int score;
+    private float consuming_time;
 }

@@ -30,9 +30,9 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/login")
-    public Result login(@RequestBody User user){
-        String username = user.getUsername();
-        String password = user.getPassword();
+    public Result login(@RequestBody HashMap<String, String> user){
+        String username = user.get("username");
+        String password = user.get("password");
         User result = userService.login(username, password);
         if(result != null) {
             final long seven_days = 604800000;

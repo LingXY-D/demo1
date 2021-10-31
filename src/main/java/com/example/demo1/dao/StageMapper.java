@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface StageMapper {
     void newStage(Stage stage);
     void deleteStage(int id);
+    int perQ(int stageId);
 }

@@ -1,5 +1,6 @@
 package com.example.demo1.service.impl;
 
+import com.example.demo1.dao.RequestMapper;
 import com.example.demo1.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.List;
 public class QuestionServiceImpl implements QuestionService {
     @Autowired
     QuestionMapper questionMapper;
+    RequestMapper requestMapper;
 
     @Override
     public boolean isCorrect(String id, List<String> ans) {
@@ -25,6 +27,14 @@ public class QuestionServiceImpl implements QuestionService {
             if(!ans.contains(answer)) return false;
         }
         return true;
+    }
+
+    @Override
+    public boolean isStageBegin(int questionId, int userId) {
+        Question question = questionMapper.selectByQuestionId(questionId);
+        int stageId = question.getStage_id();
+        if(requestMapper.selectBy2Id(stageId, userId) != null) return true;
+        return false;
     }
 
     @Override

@@ -32,10 +32,6 @@
         where openid = #{openid}
     </select>
 
-    <select id="selectByUserId" resultMap="BaseUserMap">
-        select * from user
-        where id = #{userId}
-    </select>
 </mapper>
 
 
