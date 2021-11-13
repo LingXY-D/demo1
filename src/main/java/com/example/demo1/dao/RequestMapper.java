@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface RequestMapper {
     Request selectBy2Id(int stageId, int userId);
     void newRequest(Request request);
-    void addTotal(int id);
+    void addCnt(int id);
     void addScore(int id);
 }

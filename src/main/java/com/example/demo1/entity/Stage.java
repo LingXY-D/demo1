@@ -13,7 +13,7 @@ public class Stage {
     private int contest_id;
     private int index;
     private int time_limit;
-    private LocalTime last_time;
+    private LocalDateTime last_time;
     private LocalDateTime start_time;
     private int score;
 }

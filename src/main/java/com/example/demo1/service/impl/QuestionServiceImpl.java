@@ -1,6 +1,7 @@
 package com.example.demo1.service.impl;
 
 import com.example.demo1.dao.RequestMapper;
+import com.example.demo1.entity.Request;
 import com.example.demo1.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.List;
 public class QuestionServiceImpl implements QuestionService {
     @Autowired
     QuestionMapper questionMapper;
+    @Autowired
     RequestMapper requestMapper;
 
     @Override
@@ -33,8 +35,11 @@ public class QuestionServiceImpl implements QuestionService {
     public boolean isStageBegin(int questionId, int userId) {
         Question question = questionMapper.selectByQuestionId(questionId);
         int stageId = question.getStage_id();
-        if(requestMapper.selectBy2Id(stageId, userId) != null) return true;
-        return false;
+        Request req = requestMapper.selectBy2Id(stageId, userId);
+        if(req != null)
+            return true;
+        else
+            return false;
     }
 
     @Override

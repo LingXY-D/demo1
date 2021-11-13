@@ -26,12 +26,12 @@ public class StageController {
         else return LocalDateTime.parse(strTime, formatter);
     }
 
-    private LocalTime LastTime(String strTime) throws ParseException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        LocalTime last_t = LocalTime.parse(strTime, formatter);
-        if (StringUtils.isBlank(strTime)) return null;
-        else return last_t;
-    }
+//    private LocalTime LastTime(String strTime) throws ParseException {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+//        LocalTime last_t = LocalTime.parse(strTime, formatter);
+//        if (StringUtils.isBlank(strTime)) return null;
+//        else return last_t;
+//    }
 
     @GetMapping("/hello")
     public String hello() {
@@ -41,17 +41,17 @@ public class StageController {
     @AdminLogin
     @PostMapping("/new")
     public void newStage(@RequestBody HashMap<String,String> map) {
-        LocalTime last_t = null;
         LocalDateTime start_t = null;
+        LocalDateTime end_t = null;
         try {
-            last_t = LastTime(map.get("last_time"));
+            end_t = StartTime(map.get("last_time"));
             start_t = StartTime(map.get("start_time"));
         } catch (Exception e) {}
         Stage stage = new Stage(Integer.parseInt(map.get("id")),
                 Integer.parseInt(map.get("contest_id")),
                 Integer.parseInt(map.get("index")),
                 Integer.parseInt(map.get("time_limit")),
-                last_t,
+                end_t,
                 start_t,
                 Integer.parseInt(map.get("score"))
         );

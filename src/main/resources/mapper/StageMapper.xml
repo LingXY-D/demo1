@@ -8,19 +8,19 @@
         <result column="contest_id" property="contest_id"/>
         <result column="index" property="index"/>
         <result column="time_limit" property="time_limit"/>
-        <result column="last_time" property="last_time"/>
+        <result column="end_time" property="end_time"/>
         <result column="start_time" property="start_time"/>
         <result column="score" property="score"/>
     </resultMap>
 
-    <select id="perQ" resultMap="BaseUserMap">
+    <select id="perQ" resultMap="BaseStageMap">
         select score from stage
         where id = #{stageId}
     </select>
 
     <insert id="newStage" useGeneratedKeys="true">
-        insert into stage(id, contest_id, index, time_limit, last_time, start_time, score)
-        values (#{id}, #{contest_id}, #{index}, #{time_limit}, #{last_time}, #{start_time}, #{score})
+        insert into stage(id, contest_id, index, time_limit, end_time, start_time, score)
+        values (#{id}, #{contest_id}, #{index}, #{time_limit}, #{end_time}, #{start_time}, #{score})
     </insert>
 
     <delete id="deleteStage">

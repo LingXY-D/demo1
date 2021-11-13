@@ -19,9 +19,9 @@
         where id = #{id}
     </select>
 
-    <insert id="addQuestion" useGeneratedKeys="true">
-        insert into question(id, stage_id, question_stem, option1, option2, option3, option4, answer)
-        values (#{id}, #{stage_id}, #{statement}, #{option1}, #{option2}, #{option3}, #{option4}, #{answer})
+    <insert id="addQuestion" useGeneratedKeys="true" keyProperty="id">
+        insert into question(stage_id, question_stem, option1, option2, option3, option4, answer)
+        values (#{stage_id}, #{statement}, #{option1}, #{option2}, #{option3}, #{option4}, #{answer})
     </insert>
 
     <delete id="deleteQuestion">

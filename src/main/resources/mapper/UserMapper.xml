@@ -27,6 +27,11 @@
         where id = #{userId}
     </update>
 
+    <select id="selectByUserId" resultMap="BaseUserMap">
+        select * from user
+        where id = #{userId}
+    </select>
+
     <select id="selectByOpenid" resultMap="BaseUserMap">
         select * from user
         where openid = #{openid}

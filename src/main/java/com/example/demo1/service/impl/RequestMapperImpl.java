@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 public class RequestMapperImpl implements RequestService{
     @Autowired
     RequestMapper requestMapper;
+    @Autowired
     QuestionMapper questionMapper;
+    @Autowired
     StageMapper stageMapper;
 
     @Override
@@ -25,20 +27,16 @@ public class RequestMapperImpl implements RequestService{
     }
 
     @Override
-    public void addTotal(int questionId, int userId) {
+    public void addCnt(int questionId, int userId) {    // 每答一题+1
         Question question = questionMapper.selectByQuestionId(questionId);
         int stageId = question.getStage_id();
         Request request = requestMapper.selectBy2Id(stageId, userId);
         int requestId = request.getId();
-        requestMapper.addTotal(requestId);
+        requestMapper.addCnt(requestId);
     }
 
-//    @Override
-//    public void addTime(int questionId, int userId) {
-//    }
-
     @Override
-    public void addScore(int questionId, int userId) {
+    public void addScore(int questionId, int userId) {    // 答对正确+1
         Question question = questionMapper.selectByQuestionId(questionId);
         int stageId = question.getStage_id();
         Request request = requestMapper.selectBy2Id(stageId, userId);
@@ -48,8 +46,8 @@ public class RequestMapperImpl implements RequestService{
 
     @Override
     public int countScore(int userId, int stageId) {
-        int score = requestMapper.selectBy2Id(stageId, userId).getScore();
-        int perQ = stageMapper.perQ(stageId);
+        int score = requestMapper.selectBy2Id(stageId, userId).getScore();  // 正确题数
+        int perQ = stageMapper.perQ(stageId);   // 每题得分
         return score * perQ;
     }
 }

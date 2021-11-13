@@ -23,6 +23,7 @@ import java.util.List;
 public class QuestionController {
     @Autowired
     QuestionService questionService;
+    @Autowired
     RequestService requestService;
 
     @UserLogin
@@ -38,7 +39,7 @@ public class QuestionController {
         if(!questionService.isStageBegin(Integer.valueOf(id), userId)) {
             requestService.newRequest(Integer.valueOf(id), userId);     // 新建request元组
         }
-        requestService.addTotal(Integer.valueOf(id), userId);
+        requestService.addCnt(Integer.valueOf(id), userId);
 //        requestService.addTime(Integer.valueOf(id), userId);
         if(questionService.isCorrect(id, ans)) {
             requestService.addScore(Integer.valueOf(id), userId);
