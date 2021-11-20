@@ -19,8 +19,8 @@
     </select>
 
     <insert id="newStage" useGeneratedKeys="true">
-        insert into stage(id, contest_id, index, time_limit, end_time, start_time, score)
-        values (#{id}, #{contest_id}, #{index}, #{time_limit}, #{end_time}, #{start_time}, #{score})
+        insert into stage(contest_id, `index`, time_limit, end_time, start_time, score)
+        values (#{contest_id}, #{index}, #{time_limit}, #{end_time}, #{start_time}, #{score})
     </insert>
 
     <delete id="deleteStage">
