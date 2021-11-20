@@ -34,31 +34,22 @@ public class QuestionController {
     @PostMapping("/judge")
     public Result isCorrect(HttpServletRequest request, @RequestBody HashMap<String, String> question) {
         String id = question.get("id");
+        String conduming_time = question.get("consuming_time");
         List<String> ans = new ArrayList<>();
         for(String val: question.values()) {
             ans.add(val);
         }
         String token = request.getHeader("Authorization").substring(7);
         int userId = JwtUtil.getUserID(token);
-        if(!questionService.isStageBegin(Integer.valueOf(id), userId)) {
-            requestService.newRequest(Integer.valueOf(id), userId);     // 新建request元组
-        }
         requestService.addCnt(Integer.valueOf(id), userId);     // 题目id和用户id
+        requestService.addTime(conduming_time, Integer.valueOf(id), userId);
+        Question nextQ = questionService.getNext(Integer.valueOf(id));
+
         if(questionService.isCorrect(id, ans)) {
             requestService.addScore(Integer.valueOf(id), userId);
-            Question nextQ = null;
-                    questionService.getNext(Integer.valueOf(id) + 1);
             return new Result(1, nextQ, "回答正确");
         }
-        else System.out.println("false");
-
-        if(!id.equals("10")) {
-            Question nextQ = questionService.getNext(Integer.valueOf(id));
-            return new Result(1, nextQ, "回答正确");
-        }
-        System.out.println("该关卡答题结束");
-        stageService.setEndTime(Integer.valueOf(id));
-        return null;
+        return new Result(-1, nextQ, "回答错误");
     }
 
     @AdminLogin

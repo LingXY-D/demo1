@@ -1,12 +1,18 @@
 package com.example.demo1.controller;
 
 import com.example.demo1.annotation.AdminLogin;
+import com.example.demo1.annotation.UserLogin;
+import com.example.demo1.entity.Question;
 import com.example.demo1.entity.Stage;
+import com.example.demo1.service.QuestionService;
+import com.example.demo1.service.RequestService;
 import com.example.demo1.service.StageService;
+import com.example.demo1.util.JwtUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Time;
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -19,6 +25,10 @@ import java.util.HashMap;
 public class StageController {
     @Autowired
     StageService stageService;
+    @Autowired
+    RequestService requestService;
+    @Autowired
+    QuestionService questionService;
 
     private LocalDateTime SetTime(String strTime) throws ParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -47,7 +57,7 @@ public class StageController {
             end_t = SetTime(map.get("end_time"));
             start_t = SetTime(map.get("start_time"));
         } catch (Exception e) {}
-        Stage stage = new Stage(Integer.parseInt(map.get("id")),
+        Stage stage = new Stage(0,
                 Integer.parseInt(map.get("contest_id")),
                 Integer.parseInt(map.get("index")),
                 Integer.parseInt(map.get("time_limit")),
@@ -56,6 +66,16 @@ public class StageController {
                 Integer.parseInt(map.get("score"))
         );
         stageService.newStage(stage);
+    }
+
+    @UserLogin
+    @PostMapping("/start")
+    public Question startStage(HttpServletRequest request, @RequestBody HashMap<String,String> map) {
+        int stageId = Integer.valueOf(map.get("stageId"));
+        String token = request.getHeader("Authorization").substring(7);
+        int userId = JwtUtil.getUserID(token);
+        requestService.newRequest(stageId, userId);     // 新建request元组
+        return questionService.firstQ(stageId);
     }
 
     @AdminLogin

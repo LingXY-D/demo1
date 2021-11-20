@@ -10,9 +10,9 @@
         <result column="code" property="code"/>
     </resultMap>
 
-    <insert id="insertContest" useGeneratedKeys="true">
-        insert into contest(id, contest_name, intro, code)
-        values (#{id}, #{contest_name}, #{intro}, #{code})
+    <insert id="insertContest" useGeneratedKeys="true"  keyProperty="id">
+        insert into contest(contest_name, intro, code)
+        values (#{contest_name}, #{intro}, #{code})
     </insert>
 
     <delete id="deleteContest">

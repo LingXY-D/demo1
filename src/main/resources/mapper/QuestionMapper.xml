@@ -19,6 +19,21 @@
         where id = #{id}
     </select>
 
+    <select id="firstQ" resultMap="BaseQuestionMap">
+        select * from question
+        where stage_id = #{stage_id}
+        ORDER BY id
+        limit 0,1
+    </select>
+
+    <select id="getNext" resultMap="BaseQuestionMap">
+        select *
+        from question
+        where id > #{id} AND stage_id = #{stage_id}
+        ORDER BY id
+        limit 0,1
+    </select>
+
     <insert id="addQuestion" useGeneratedKeys="true" keyProperty="id">
         insert into question(stage_id, question_stem, option1, option2, option3, option4, answer)
         values (#{stage_id}, #{statement}, #{option1}, #{option2}, #{option3}, #{option4}, #{answer})

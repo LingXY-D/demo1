@@ -9,8 +9,10 @@ import com.example.demo1.dao.RequestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service("requestService")
-public class RequestMapperImpl implements RequestService{
+public class RequestServiceImpl implements RequestService{
     @Autowired
     RequestMapper requestMapper;
     @Autowired
@@ -19,10 +21,8 @@ public class RequestMapperImpl implements RequestService{
     StageMapper stageMapper;
 
     @Override
-    public void newRequest(int questionId, int userId) {
-        Question question = questionMapper.selectByQuestionId(questionId);
-        int stageId = question.getStage_id();
-        Request request = new Request(0, userId, stageId, 0, null, 0, 0);
+    public void newRequest(int stageId, int userId) {
+        Request request = new Request(0, userId, stageId, 0, LocalDateTime.now(), 0, 0);
         requestMapper.newRequest(request);
     }
 

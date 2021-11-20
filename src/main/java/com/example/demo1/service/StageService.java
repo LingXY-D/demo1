@@ -7,5 +7,4 @@ import java.time.LocalDateTime;
 public interface StageService {
     public void newStage(Stage stage);
     public void deleteStage(int id);
-    public LocalDateTime setEndTime(int questionId);
 }

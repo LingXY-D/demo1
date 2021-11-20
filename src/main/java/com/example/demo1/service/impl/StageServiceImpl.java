@@ -28,11 +28,4 @@ public class StageServiceImpl implements StageService {
         stageMapper.deleteStage(id);
     }
 
-    @Override
-    public LocalDateTime setEndTime(int questionId) {
-        Question question = questionMapper.selectByQuestionId(questionId);
-        int stageId = question.getStage_id();
-        stageMapper.setEndtime(stageId, LocalDateTime.now());
-        return LocalDateTime.now();
-    }
 }

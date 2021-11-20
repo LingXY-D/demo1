@@ -20,19 +20,19 @@
 
     <update id="addCnt">
         update request set
-            cnt = #{cnt} + 1
+            cnt = cnt + 1
         where id = #{id}
     </update>
 
     <update id="addScore">
         update request set
-            score = #{score} + 1
+            score = score + 1
         where id = #{id}
     </update>
 
     <insert id="newRequest" useGeneratedKeys="true" keyProperty="id">
-        insert into request(id, user_id, stage_id, cnt, start_time, score, consuming_time)
-        values (#{id}, #{user_id}, #{stage_id}, #{cnt}, #{start_time}, #{score}, #{consuming_time})
+        insert into request(user_id, stage_id, cnt, start_time, score, consuming_time)
+        values (#{user_id}, #{stage_id}, #{cnt}, #{start_time}, #{score}, #{consuming_time})
     </insert>
 
     <delete id="deleteRequest">

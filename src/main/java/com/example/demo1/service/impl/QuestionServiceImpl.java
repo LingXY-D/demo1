@@ -24,7 +24,7 @@ public class QuestionServiceImpl implements QuestionService {
         Question question = questionMapper.selectByQuestionId(tempId);
         String tempAnswer = question.getAnswer();
         String[] standard_ans = tempAnswer.split(",");
-        if((ans.size() - 1) != standard_ans.length) return false;
+        if((ans.size() - 2) != standard_ans.length) return false;
         for(String answer: standard_ans) {
             if(!ans.contains(answer)) return false;
         }
@@ -43,8 +43,13 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    public Question firstQ(int stageId) {
+        return questionMapper.firstQ(stageId);
+    }
+
+    @Override
     public Question getNext(int id) {
-        return questionMapper.selectByQuestionId(id);
+        return questionMapper.getNext(id, questionMapper.selectByQuestionId(id).getStage_id());
     }
 
     @Override
