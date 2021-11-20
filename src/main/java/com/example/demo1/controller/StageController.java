@@ -21,7 +21,7 @@ public class StageController {
     @Autowired
     StageService stageService;
 
-    private LocalDateTime StartTime(String strTime) throws ParseException {
+    private LocalDateTime SetTime(String strTime) throws ParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         if (StringUtils.isBlank(strTime)) return null;
         else return LocalDateTime.parse(strTime, formatter);

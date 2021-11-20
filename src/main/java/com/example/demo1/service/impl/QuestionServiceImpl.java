@@ -43,6 +43,11 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    public Question getNext(int id) {
+        return questionMapper.selectByQuestionId(id);
+    }
+
+    @Override
     public void addQuestion(Question question) {
         questionMapper.addQuestion(question);
     }

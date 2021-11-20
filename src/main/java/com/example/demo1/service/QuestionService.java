@@ -10,4 +10,5 @@ public interface QuestionService {
     public void addQuestion(Question question);
     public void deleteQuestion(int id);
     public boolean isStageBegin(int questionId, int userId);
+    public Question getNext(int id);
 }
