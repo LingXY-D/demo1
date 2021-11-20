@@ -20,7 +20,7 @@ public class StageController {
     @Autowired
     StageService stageService;
 
-    private LocalDateTime StartTime(String strTime) throws ParseException {
+    private LocalDateTime SetTime(String strTime) throws ParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         if (StringUtils.isBlank(strTime)) return null;
         else return LocalDateTime.parse(strTime, formatter);
@@ -44,8 +44,8 @@ public class StageController {
         LocalDateTime start_t = null;
         LocalDateTime end_t = null;
         try {
-            end_t = StartTime(map.get("last_time"));
-            start_t = StartTime(map.get("start_time"));
+            end_t = SetTime(map.get("end_time"));
+            start_t = SetTime(map.get("start_time"));
         } catch (Exception e) {}
         Stage stage = new Stage(Integer.parseInt(map.get("id")),
                 Integer.parseInt(map.get("contest_id")),

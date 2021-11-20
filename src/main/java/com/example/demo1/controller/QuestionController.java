@@ -6,7 +6,9 @@ import com.example.demo1.entity.Question;
 import com.example.demo1.entity.Request;
 import com.example.demo1.service.QuestionService;
 import com.example.demo1.service.RequestService;
+import com.example.demo1.service.StageService;
 import com.example.demo1.util.JwtUtil;
+import com.example.demo1.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,10 +27,12 @@ public class QuestionController {
     QuestionService questionService;
     @Autowired
     RequestService requestService;
+    @Autowired
+    StageService stageService;
 
     @UserLogin
     @PostMapping("/judge")
-    public boolean isCorrect(HttpServletRequest request, @RequestBody HashMap<String, String> question) {
+    public Result isCorrect(HttpServletRequest request, @RequestBody HashMap<String, String> question) {
         String id = question.get("id");
         List<String> ans = new ArrayList<>();
         for(String val: question.values()) {
@@ -39,13 +43,22 @@ public class QuestionController {
         if(!questionService.isStageBegin(Integer.valueOf(id), userId)) {
             requestService.newRequest(Integer.valueOf(id), userId);     // 新建request元组
         }
-        requestService.addCnt(Integer.valueOf(id), userId);
-//        requestService.addTime(Integer.valueOf(id), userId);
+        requestService.addCnt(Integer.valueOf(id), userId);     // 题目id和用户id
         if(questionService.isCorrect(id, ans)) {
             requestService.addScore(Integer.valueOf(id), userId);
-            return true;
+            Question nextQ = null;
+                    questionService.getNext(Integer.valueOf(id) + 1);
+            return new Result(1, nextQ, "回答正确");
         }
-        else return false;
+        else System.out.println("false");
+
+        if(!id.equals("10")) {
+            Question nextQ = questionService.getNext(Integer.valueOf(id));
+            return new Result(1, nextQ, "回答正确");
+        }
+        System.out.println("该关卡答题结束");
+        stageService.setEndTime(Integer.valueOf(id));
+        return null;
     }
 
     @AdminLogin
