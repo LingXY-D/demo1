@@ -30,6 +30,12 @@
         where id = #{id}
     </update>
 
+    <update id="addTime">
+        update request set
+            consuming_time = consuming_time + #{consuming_time}
+        where id = #{id}
+    </update>
+
     <insert id="newRequest" useGeneratedKeys="true" keyProperty="id">
         insert into request(user_id, stage_id, cnt, start_time, score, consuming_time)
         values (#{user_id}, #{stage_id}, #{cnt}, #{start_time}, #{score}, #{consuming_time})

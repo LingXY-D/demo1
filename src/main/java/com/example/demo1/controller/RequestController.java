@@ -22,4 +22,7 @@ public class RequestController {
         int totalScore = requestService.countScore(userId, stageId);
         return totalScore;
     }
+
+//    @PostMapping("/ranking")
+//    public
 }

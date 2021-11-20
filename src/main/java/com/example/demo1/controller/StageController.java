@@ -7,6 +7,7 @@ import com.example.demo1.entity.Stage;
 import com.example.demo1.service.QuestionService;
 import com.example.demo1.service.RequestService;
 import com.example.demo1.service.StageService;
+import com.example.demo1.util.JwtUtil;
 import com.example.demo1.util.Result;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +55,8 @@ public class StageController {
         LocalDateTime start_t = null;
         LocalDateTime end_t = null;
         try {
-
-            end_t = StartTime(map.get("end_time"));
-            start_t = StartTime(map.get("start_time"));
+            end_t = SetTime(map.get("end_time"));
+            start_t = SetTime(map.get("start_time"));
         } catch (Exception e) {
             return new Result(-1, null, e.getMessage());
         }

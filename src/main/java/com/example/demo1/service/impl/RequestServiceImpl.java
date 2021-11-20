@@ -28,20 +28,23 @@ public class RequestServiceImpl implements RequestService{
 
     @Override
     public void addCnt(int questionId, int userId) {    // 每答一题+1
-        Question question = questionMapper.selectByQuestionId(questionId);
-        int stageId = question.getStage_id();
-        Request request = requestMapper.selectBy2Id(stageId, userId);
-        int requestId = request.getId();
+        int stageId = questionMapper.selectByQuestionId(questionId).getStage_id();
+        int requestId = requestMapper.selectBy2Id(stageId, userId).getId();
         requestMapper.addCnt(requestId);
     }
 
     @Override
     public void addScore(int questionId, int userId) {    // 答对正确+1
-        Question question = questionMapper.selectByQuestionId(questionId);
-        int stageId = question.getStage_id();
-        Request request = requestMapper.selectBy2Id(stageId, userId);
-        int requestId = request.getId();
+        int stageId = questionMapper.selectByQuestionId(questionId).getStage_id();
+        int requestId = requestMapper.selectBy2Id(stageId, userId).getId();
         requestMapper.addScore(requestId);
+    }
+
+    @Override
+    public void addTime(float consuming_time, int questionId, int userId) {
+        int stageId = questionMapper.selectByQuestionId(questionId).getStage_id();
+        int requestId = requestMapper.selectBy2Id(stageId, userId).getId();
+        requestMapper.addTime(consuming_time, requestId);
     }
 
     @Override

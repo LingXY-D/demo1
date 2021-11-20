@@ -34,7 +34,7 @@ public class QuestionController {
     @PostMapping("/judge")
     public Result isCorrect(HttpServletRequest request, @RequestBody HashMap<String, String> question) {
         String id = question.get("id");
-        String conduming_time = question.get("consuming_time");
+        float conduming_time = Float.parseFloat(question.get("consuming_time"));
         List<String> ans = new ArrayList<>();
         for(String val: question.values()) {
             ans.add(val);

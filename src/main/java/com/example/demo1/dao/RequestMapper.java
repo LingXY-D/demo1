@@ -12,4 +12,5 @@ public interface RequestMapper {
     void newRequest(Request request);
     void addCnt(int id);
     void addScore(int id);
+    void addTime(float consuming_time, int id);
 }
