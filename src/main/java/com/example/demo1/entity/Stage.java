@@ -16,4 +16,9 @@ public class Stage {
     private LocalDateTime end_time;
     private LocalDateTime start_time;
     private int score;
+
+    public Stage() {
+        id = contest_id = index = time_limit = score = 0;
+        end_time = start_time = null;
+    }
 }

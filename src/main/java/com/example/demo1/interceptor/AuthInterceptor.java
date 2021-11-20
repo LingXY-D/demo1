@@ -31,7 +31,10 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     private boolean isAdmin(String token) {
         int userId = JwtUtil.getUserID(token);
-        return userService.isAdmin(userId);
+        if (!userService.isAdmin(userId)) {
+            throw new RuntimeException("无权限的操作");
+        }
+        return true;
     }
 
     private boolean isRefresh(String token) {

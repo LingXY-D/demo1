@@ -18,8 +18,8 @@
         where id = #{stageId}
     </select>
 
-    <insert id="newStage" useGeneratedKeys="true"  keyProperty="id">
-        insert into stage(contest_id, index, time_limit, end_time, start_time, score)
+    <insert id="newStage" useGeneratedKeys="true">
+        insert into stage(contest_id, `index`, time_limit, end_time, start_time, score)
         values (#{contest_id}, #{index}, #{time_limit}, #{end_time}, #{start_time}, #{score})
     </insert>
 
