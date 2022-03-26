@@ -11,6 +11,7 @@ import com.example.demo1.util.JwtUtil;
 import com.example.demo1.util.Result;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -72,7 +73,7 @@ public class StageController {
     }
 
     @UserLogin
-    @PostMapping("/start")
+    @PostMapping("/start")  // 需要检测是否是第一次开始答题
     public Question startStage(HttpServletRequest request, @RequestBody HashMap<String,String> map) {
         int stageId = Integer.valueOf(map.get("stageId"));
         String token = request.getHeader("Authorization").substring(7);
@@ -81,10 +82,19 @@ public class StageController {
         return questionService.firstQ(stageId);
     }
 
+//    @UserLogin
+//    @PostMapping("rank")
+//    public List<>
+
     @AdminLogin
     @PostMapping("/delete")
-    public void deleteStage(@RequestBody int id) {
-        stageService.deleteStage(id);
+    public Result deleteStage(@RequestBody int id) {
+        try{
+            stageService.deleteStage(id);
+        } catch (Exception e){
+            return new Result(-1, null, e.getMessage());
+        }
+        return new Result(0, "当前已删除关卡：" + id, "删除成功");
     }
 
 }

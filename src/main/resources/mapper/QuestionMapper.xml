@@ -34,6 +34,23 @@
         limit 0,1
     </select>
 
+<!--    <select id="getN" resultMap="BaseQuestionMap">-->
+<!--        select *-->
+<!--        from (-->
+<!--             select * from question where ROWNUM < #{n}-->
+<!--             order by ROWNUM desc-->
+<!--                 )-->
+<!--        where ROWNUM = 1;-->
+<!--    </select>-->
+
+<!--    SELECT *
+FROM (
+     SELECT *
+     FROM copy_emp
+     WHERE ROWNUM <= 1825574
+     ORDER BY ROWNUM DESC)
+WHERE ROWNUM = 1;-->
+
     <insert id="addQuestion" useGeneratedKeys="true" keyProperty="id">
         insert into question(stage_id, question_stem, option1, option2, option3, option4, answer)
         values (#{stage_id}, #{statement}, #{option1}, #{option2}, #{option3}, #{option4}, #{answer})

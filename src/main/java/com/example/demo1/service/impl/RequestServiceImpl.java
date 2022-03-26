@@ -51,6 +51,6 @@ public class RequestServiceImpl implements RequestService{
     public int countScore(int userId, int stageId) {
         int score = requestMapper.selectBy2Id(stageId, userId).getScore();  // 正确题数
         int perQ = stageMapper.perQ(stageId);   // 每题得分
-        return score * perQ;
+        return (int)score * perQ;
     }
 }

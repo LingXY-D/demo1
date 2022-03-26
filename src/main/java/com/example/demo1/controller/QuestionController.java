@@ -41,26 +41,40 @@ public class QuestionController {
         }
         String token = request.getHeader("Authorization").substring(7);
         int userId = JwtUtil.getUserID(token);
-        requestService.addCnt(Integer.valueOf(id), userId);     // 题目id和用户id
-        requestService.addTime(conduming_time, Integer.valueOf(id), userId);
         Question nextQ = questionService.getNext(Integer.valueOf(id));
 
-        if(questionService.isCorrect(id, ans)) {
-            requestService.addScore(Integer.valueOf(id), userId);
-            return new Result(1, nextQ, "回答正确");
+        try{
+            requestService.addCnt(Integer.valueOf(id), userId);     // 题目id和用户id
+            requestService.addTime(conduming_time, Integer.valueOf(id), userId);
+            if(questionService.isCorrect(id, ans)) {
+                requestService.addScore(Integer.valueOf(id), userId);
+                return new Result(1, nextQ, "回答正确");
+            }
+        } catch (Exception e){
+            return new Result(-1, null, e.getMessage());
         }
-        return new Result(-1, nextQ, "回答错误");
+        return new Result(0, nextQ, "回答错误");
     }
 
     @AdminLogin
     @PostMapping("/add")
-    public void addQuestion(@RequestBody Question question) {
-        questionService.addQuestion(question);
+    public Result addQuestion(@RequestBody Question question) {
+        try{
+            questionService.addQuestion(question);
+        } catch (Exception e){
+            return new Result(-1, null, e.getMessage());
+        }
+        return new Result(0, question, "题目添加成功");
     }
 
     @AdminLogin
     @PostMapping("/delete")
-    public void deleteQuestion(@RequestBody int id) {
-        questionService.deleteQuestion(id);
+    public Result deleteQuestion(@RequestBody int id) {
+        try{
+            questionService.deleteQuestion(id);
+        } catch (Exception e){
+            return new Result(-1, null, e.getMessage());
+        }
+        return new Result(0, "当前已删除题目：" + id, "删除成功");
     }
 }

@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public Result register(@RequestBody HashMap<String, String> user){
+    public Result register(@RequestBody HashMap<String, String> user) {
         String username = user.get("username");
         String password = user.get("password");
         log.info("register username: {} password: {}", username, password);

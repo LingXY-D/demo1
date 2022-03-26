@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService{
 //    private user user;
 
     @Override
-    public User login(String username, String password){
+    public User login(String username, String password) {
         User user = userMapper.selectByUsername(username);
         if (user == null) return null;
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
