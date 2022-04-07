@@ -46,4 +46,23 @@
         where id = #{id}
     </delete>
 
+    <select id="ranking" resultMap="BaseRequestMap">
+        select * from request
+        where stage_id = #{stageId}
+        order by score desc, consuming_time
+--         limit 0, 10
+--         select user_id, score, consuming_time, RANK() over(order by score desc, consuming_time) as rank from request
+--         where stage_id = #{stageId}
+--         limit 0,10
+    </select>
+
+    <select id="userRank" resultType="int">
+        select rank from(
+            select user_id, score, consuming_time, RANK() over(order by score desc, consuming_time) as rank from request
+            where stage_id = #{stageId})
+        where user_id = #{userId}
+    </select>
+
+
+
 </mapper>

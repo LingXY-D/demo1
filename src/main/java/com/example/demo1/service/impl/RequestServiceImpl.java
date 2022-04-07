@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 @Service("requestService")
 public class RequestServiceImpl implements RequestService{
@@ -52,5 +55,20 @@ public class RequestServiceImpl implements RequestService{
         int score = requestMapper.selectBy2Id(stageId, userId).getScore();  // 正确题数
         int perQ = stageMapper.perQ(stageId);   // 每题得分
         return (int)score * perQ;
+    }
+
+    @Override
+    public HashMap<Request, Integer> rank(int userId, int stageId) {
+        HashMap<Request, Integer> rank = new HashMap<>();
+//        List<Request> query = new LinkedList<>();
+        int userRank = requestMapper.userRank(userId, stageId);
+        rank.put(requestMapper.selectBy2Id(stageId, userId), userRank);
+        List<Request> query = requestMapper.ranking(stageId);
+        int cnt = 1;
+        for(Request re: query) {
+            rank.put(re, cnt);
+            cnt++;
+        }
+        return rank;
     }
 }
