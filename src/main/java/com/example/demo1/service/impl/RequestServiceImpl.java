@@ -24,9 +24,21 @@ public class RequestServiceImpl implements RequestService{
     StageMapper stageMapper;
 
     @Override
-    public void newRequest(int stageId, int userId) {
-        Request request = new Request(0, userId, stageId, 0, LocalDateTime.now(), 0, 0);
-        requestMapper.newRequest(request);
+    public int newRequest(int stageId, int userId) {
+        Request re = requestMapper.selectBy2Id(stageId, userId);
+        if(re == null) {
+            re = new Request(0, userId, stageId, 0, LocalDateTime.now(), 0, 0);
+            requestMapper.newRequest(re);
+            return 0;
+        }
+        return re.getCnt();
+    }
+
+    @Override
+    public int selectRequest(int stageId, int userId) {
+        Request re = requestMapper.selectBy2Id(stageId, userId);
+        if(re == null) return 0;
+        return re.getCnt();
     }
 
     @Override
@@ -60,7 +72,6 @@ public class RequestServiceImpl implements RequestService{
     @Override
     public HashMap<Request, Integer> rank(int userId, int stageId) {
         HashMap<Request, Integer> rank = new HashMap<>();
-//        List<Request> query = new LinkedList<>();
         int userRank = requestMapper.userRank(userId, stageId);
         rank.put(requestMapper.selectBy2Id(stageId, userId), userRank);
         List<Request> query = requestMapper.ranking(stageId);

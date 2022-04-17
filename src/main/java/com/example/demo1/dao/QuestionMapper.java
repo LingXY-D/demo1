@@ -12,4 +12,5 @@ public interface QuestionMapper {
     void deleteQuestion(int id);
     Question firstQ(int stage_id);
     Question getNext(int id, int stage_id);
+//    Question getN(int no, int stage_id);
 }

@@ -38,7 +38,8 @@ public class RequestController {
 
     @UserLogin
     @PostMapping("/rank")
-    public Result rank(HttpServletRequest request, @RequestBody int stageId) {
+    public Result rank(HttpServletRequest request, @RequestBody HashMap<String, String> query) {
+        int stageId = Integer.valueOf(query.get("stageId"));
         String token = request.getHeader("Authorization").substring(7);
         int userId = JwtUtil.getUserID(token);
         HashMap<Request, Integer> result = requestService.rank(userId, stageId);

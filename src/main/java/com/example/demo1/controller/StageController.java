@@ -78,13 +78,11 @@ public class StageController {
         int stageId = Integer.valueOf(map.get("stageId"));
         String token = request.getHeader("Authorization").substring(7);
         int userId = JwtUtil.getUserID(token);
-        requestService.newRequest(stageId, userId);     // 新建request元组
-        return questionService.firstQ(stageId);
+        int q = requestService.newRequest(stageId, userId);     // 新建request元组
+        if(q == 0) return questionService.firstQ(stageId);
+        return questionService.getN(q, stageId);
     }
 
-//    @UserLogin
-//    @PostMapping("rank")
-//    public List<>
 
     @AdminLogin
     @PostMapping("/delete")

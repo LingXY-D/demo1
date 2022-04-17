@@ -53,6 +53,27 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    public Question getN(int no, int stageId) {
+        Question q = questionMapper.firstQ(stageId);
+        while(no > 0) {
+            q = questionMapper.getNext(q.getId(), stageId);
+            no--;
+        }
+        return q;
+    }
+
+    @Override
+    public Question isCurrentQ(int questionId, int userId) {  // 判断正在回答的题目是否是应该回答的那一个
+        Question question = questionMapper.selectByQuestionId(questionId);
+        int stageId = question.getStage_id();
+        Request req = requestMapper.selectBy2Id(stageId, userId);
+        Question temp = getN(req.getCnt(), stageId);
+        if(temp == null) return new Question(0,0,"0","0","0","0","0","0");
+        if(temp.getId() != questionId) return temp;
+        return null;
+    }
+
+    @Override
     public void addQuestion(Question question) {
         questionMapper.addQuestion(question);
     }

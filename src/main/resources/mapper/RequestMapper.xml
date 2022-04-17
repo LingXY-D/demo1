@@ -56,11 +56,20 @@
 --         limit 0,10
     </select>
 
-    <select id="userRank" resultType="int">
-        select rank from(
-            select user_id, score, consuming_time, RANK() over(order by score desc, consuming_time) as rank from request
-            where stage_id = #{stageId})
-        where user_id = #{userId}
+    <select id="userRank">
+        select count(*) from request
+        where score > (select score from request where user_id = #{userId} and stage_id = #{stageId}) and stage_id = #{stageId}
+--         select rown from (
+--             select request.*, @rownum := @rownum + 1 as rown
+--             from (select @rownum := 0) r, request
+--             order by request.score desc, consuming_time
+--         ) as b
+--         where b.user_id = #{userId}
+
+--         select rank from(
+--             select user_id, score, consuming_time, RANK() over(order by score desc, consuming_time) as rank from request
+--             where stage_id = #{stageId})
+--         where user_id = #{userId}
     </select>
 
 

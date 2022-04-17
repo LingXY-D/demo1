@@ -12,4 +12,6 @@ public interface QuestionService {
     public boolean isStageBegin(int questionId, int userId);
     public Question firstQ(int stageId);
     public Question getNext(int id);
+    public Question getN(int no, int stageId);
+    public Question isCurrentQ(int questionId, int userId);
 }
